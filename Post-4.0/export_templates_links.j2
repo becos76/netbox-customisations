@@ -1,0 +1,12 @@
+{% for cl in queryset %}
+---
+name: "{{ cl.name }}"
+weight: {{ cl.weight }}
+enabled: {{ cl.enabled }}
+link_url: "{{ cl.link_url }}"
+link_text: "{{ cl.link_text }}"
+group_name: "{{ cl.group_name }}"
+new_window: {{ cl.new_window }}
+button_class: "{{ cl.button_class }}"
+object_types: {% for obj in cl.object_types.all() %}{{ obj.app_label }}.{{ obj.model }}{{ ", " if not loop.last else "" }}{% endfor %}
+{% endfor %}

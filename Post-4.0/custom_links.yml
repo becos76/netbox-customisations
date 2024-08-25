@@ -1,0 +1,157 @@
+---
+# Device in Network Explorer Quick View
+name: "Devices - Traffic Overview"
+weight: 10
+enabled: true
+link_url: "https://portal.kentik.com/v4/core/quick-views/devices/{{ object }}/traffic"
+link_text: "{% if 'kentikFlow' in object.tags.names() %}Traffic Overview{% endif %}"
+group_name: "Kentik"
+new_window: true
+button_class: "ghost-dark"
+object_types: dcim.device
+
+
+---
+# NMS Device Overview page
+# Need kentikDeviceID populated for the device
+name: "Devices - Metrics Overview"
+weight: 20
+enabled: true
+link_url: "https://portal.kentik.com/v4/nms/devices/{{ object.cf.kentikDeviceID }}"
+link_text: "{% if 'kentikNMS' in object.tags.names() and object.cf.kentikDeviceID %}Metrics Overview{% endif %}"
+group_name: "Kentik"
+new_window: true
+button_class: "ghost-dark"
+object_types: dcim.device
+
+---
+# SNMP Metrics Dashboard for device
+# Need kentikSnmpDashboard ID populated in Device Role
+name: "Devices - SNMP Dashboard"
+weight: 30
+enabled: true
+link_url: "https://portal.kentik.com/v4/library/dashboards/{{ object.role.cf.kentikSnmpDashboard }}/guided?device={{ object }}"
+link_text: "{% if 'kentikNMS' in object.tags.names() and object.role.cf.kentikSnmpDashboard %}Metrics Dashboard{% endif %}"
+group_name: "Kentik"
+new_window: true
+button_class: "ghost-dark"
+object_types: dcim.device
+
+
+---
+# Netflow Devices Setting Page
+name: "Devices - Settings"
+weight: 90
+enabled: true
+link_url: "https://portal.kentik.com/v4/settings/devices"
+link_text: "{% if 'kentikFlow' in object.tags.names() %}Manage Flow Devices{% endif %}"
+group_name: "Kentik"
+new_window: true
+button_class: "ghost-dark"
+object_types: dcim.device
+
+---
+# NMS Devices Setting Page
+name: "NMS Devices - Settings"
+weight: 100
+enabled: true
+link_url: "https://portal.kentik.com/v4/nms/devices"
+link_text: "{% if 'kentikNMS' in object.tags.names() %}Manage NMS Devices{% endif %}"
+group_name: "Kentik"
+new_window: true
+button_class: "ghost-dark"
+object_types: dcim.device
+
+
+---
+# Site in Network Explorer Quick View
+name: "Sites - Traffic Overview"
+weight: 10
+enabled: true
+link_url: "https://portal.kentik.com/v4/core/quick-views/sites/{{ object }}/traffic"
+link_text: "{% if 'kentikFlow' in object.tags.names() %}Traffic Overview{% endif %}"
+group_name: "Kentik"
+new_window: true
+button_class: "ghost-dark"
+object_types: dcim.site
+
+---
+# Sites Setting Page
+name: "Sites - Settings"
+weight: 100
+enabled: true
+link_url: "https://portal.kentik.com/v4/settings/sites"
+link_text: "{% if 'kentikFlow' in object.tags.names() or 'kentikNMS' in object.tags.names()%} Manage Sites {% endif %}"
+group_name: "Kentik"
+new_window: true
+button_class: "ghost-dark"
+object_types: dcim.site
+
+---
+name: "ASN - Traffic Overview"
+weight: 10
+enabled: true
+link_url: "https://portal.kentik.com/v4/core/quick-views/asn/{{ object.asn }}/traffic"
+link_text: "{{ object }} Traffic Overview"
+group_name: "Kentik"
+new_window: true
+button_class: "ghost-dark"
+object_types: ipam.asn
+
+---
+name: "IP Address - Traffic Overview"
+weight: 10
+enabled: true
+link_url: "https://portal.kentik.com/v4/core/quick-views/ip/{{ object }}/traffic"
+link_text: "Traffic Overview"
+group_name: "Kentik"
+new_window: true
+button_class: "ghost-dark"
+object_types: ipam.ipaddress
+
+---
+name: "IP Prefix - Traffic Overview"
+weight: 10
+enabled: true
+link_url: "https://portal.kentik.com/v4/core/quick-views/route-prefix/{{ object }} ( - )"
+link_text: "Traffic Overview"
+group_name: "Kentik"
+new_window: true
+button_class: "ghost-dark"
+object_types: ipam.prefix
+
+---
+# AS Group from asn custom field kentikASGroupName
+name: "AS Group - Traffic Overview"
+weight: 20
+enabled: true
+link_url: "https://portal.kentik.com/v4/core/quick-views/asn/{{ object.cf.kentikASGroupName }}/traffic"
+link_text: "{% if object.cf.kentikASGroupName %}{{ object.cf.kentikASGroupName }} Traffic Overview{% endif %}"
+group_name: "Kentik"
+new_window: true
+button_class: "ghost-dark"
+object_types: ipam.asn
+
+---
+# AS Group from asn RIR as Group name
+name: "AS Group (RIR) - Traffic Overview"
+weight: 30
+enabled: true
+link_url: "https://portal.kentik.com/v4/core/quick-views/asn/{{ object.rir }}/traffic"
+link_text: "{% if 'kentikASGroup' in object.rir.tags.names() %}{{ object.rir }} Traffic Overview{% endif %}"
+group_name: "Kentik"
+new_window: true
+button_class: "ghost-dark"
+object_types: ipam.asn
+
+---
+# AS Group for an RIR as Group name
+name: "RIR - Traffic Overview"
+weight: 10
+enabled: true
+link_url: "https://portal.kentik.com/v4/core/quick-views/asn/{{ object }}/traffic"
+link_text: "{% if 'kentikASGroup' in object.tags.names() %}{{ object }} Traffic Overview{% endif %}"
+group_name: "Kentik"
+new_window: true
+button_class: "ghost-dark"
+object_types: ipam.rir

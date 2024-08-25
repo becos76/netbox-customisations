@@ -1,0 +1,38 @@
+---
+# Device custom field holding Kentik DeviceID
+# Used for accessing Device NMS Overview page
+name: "kentikDeviceID"
+type: "integer"
+search_weight: 1000
+filter_logic: "loose"
+weight: 10
+label: "Kentik Device ID"
+ui_visible: "if-set"
+description: "Device ID in Kentik Portal"
+object_types: dcim.device
+
+---
+# Device Role custom field for SNMP Metrics guided dashboard
+name: "kentikSnmpDashboard"
+type: "integer"
+search_weight: 1000
+filter_logic: "loose"
+weight: 10
+label: "Kentik Dashboard for SNMP Metrics"
+ui_visible: "if-set"
+description: "Kentik Dashboard for SNMP Metrics"
+object_types: dcim.devicerole
+
+---
+# ASN custom field for AS Group
+# Custom Field Choice for AS Groups must be imported prior to this
+name: "kentikASGroupName"
+type: "select"
+search_weight: 1000
+filter_logic: "loose"
+weight: 10
+label: "Kentik AS Group Name"
+ui_visible: "if-set"
+choice_set: "Kentik AS Groups"
+description: "AS Group in Kentik Portal"
+object_types: "ipam.asn"

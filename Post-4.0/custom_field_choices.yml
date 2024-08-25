@@ -1,0 +1,7 @@
+---
+# Custom Field Choice for AS Group Custom Field
+# Needs to be imported before the kentikASGroupName Custom Field
+
+name: "Kentik AS Groups"
+extra_choices: "ALL Comcast,Altice ASNs,Google ASNs,Verizon,Limelight ASNs,Akamai ASNs,Kentik"
+order_alphabetically: True

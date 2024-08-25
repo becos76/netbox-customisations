@@ -1,0 +1,13 @@
+{% for cf in queryset %}
+---
+name: "{{ cf.name }}"
+type: "{{ cf.type }}"
+search_weight: {{ cf.search_weight }}
+filter_logic: "{{ cf.filter_logic }}"
+weight: {{ cf.weight }}
+label: "{{ cf.label }}"
+ui_visible: "{{ cf.ui_visible }}"
+description: "{{ cf.description }}"{% if cf.choice_set %}
+choice_set: "{{ cf.choice_set }}"{% endif %}
+object_types: {% for obj in cf.object_types.all() %}{{ obj.app_label }}.{{ obj.model }}{{ ", " if not loop.last else "" }}{% endfor %}
+{% endfor %}
