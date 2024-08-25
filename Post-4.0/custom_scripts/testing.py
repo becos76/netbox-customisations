@@ -1,3 +1,9 @@
+from extras.scripts import *
+from django.utils.text import slugify
+
+from dcim.choices import SiteStatusChoices
+from dcim.models import Site
+
 class NewSiteScript(Script):
     
     class Meta:
