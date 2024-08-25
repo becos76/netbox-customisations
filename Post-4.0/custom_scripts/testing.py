@@ -10,6 +10,8 @@ class NewSiteScript(Script):
         name = "New Site"
         description = "Provision a new site"
     
+    scheduling_enabled = False
+    
     site_name = StringVar(
         description = "Name of new site"
     )
