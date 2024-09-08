@@ -69,14 +69,16 @@ class ListKentikResources(Script):
         description = "How to produce the results"
     )
     
-    def get_plans(self, headers, env):
+    def get_plans(self, url, headers):
         # ToDo: handle errors man
         
         new_plans = []
         # valid plans, order is important as [3:] is a pak plan and max_fps is in metadata key
         valid_plans = ['legacy', 'edge', 'metrics', 'cloudpak', 'flowpak', 'cloud', 'universalpak']
 
-        re = requests.get(f"https://api.kentik.{ env }/api/v5/plans", headers=headers)
+        re = requests.get(url, headers=headers)
+        
+        #self.log_warning(f"WARNING: { re.json() }")
         
         kentik_plans = re.json()['plans']
         
@@ -104,6 +106,27 @@ class ListKentikResources(Script):
                 new_plans.append(new_plan)
 
         return new_plans, kentik_plans
+
+    def get_sites(self, url, headers):
+        
+        new_sites = []
+        re = requests.get(url, headers=headers)
+        kentik_sites = re.json()['sites']
+        
+        for site in kentik_sites:
+            new_site = {}
+            new_site.update(
+                    { "id" : site['id'],
+                      "name" : site['title'],
+                      "lat" : site['lat'],
+                      "lon": site['lon']
+                    }
+                )
+            new_sites.append(new_site)
+        
+        return new_sites, kentik_sites
+                
+
     
     def dump_json(self, result):
         return f"{json.dumps(result, indent=4)}\n--Script End--"
@@ -123,6 +146,10 @@ class ListKentikResources(Script):
     
     def run(self, data, commit):  
     
+       PLANS_URL = f"https://api.kentik.{ data['cluster'] }/api/v5/plans"
+       SITES_URL = f"https://grpc.api.kentik.{ data['cluster'] }/site/v202211/sites"
+        
+    
        kentik_header = {
            "Content-type": "application/json",
            "X-CH-Auth-Email": f"{ data['user_email']}",
@@ -130,14 +157,27 @@ class ListKentikResources(Script):
        }
        
        
+       
        self.log_info(f"INFO: Using api.kentik.{data['cluster']}")
        #self.log_success(f"SUCCESS: Using email of: {data['user_email']}")
        #self.log_warning(f"WARNING: { kentik_header }")
     
-       
-       
-       result, raw_result = self.get_plans(kentik_header,data['cluster'])
-       
+       match data['resource']:
+           case "plans":
+            result, raw_result = self.get_plans(PLANS_URL, kentik_header)
+           case "sites":
+            result, raw_result = self.get_sites(SITES_URL, kentik_header)
+           case "site_markets":
+            return "Not there yet!!!"
+           case "devices":
+            return "Not there yet!!!"
+           case "as_groups":
+            return "Not there yet!!!"
+           case _:
+            return "Ooops, shouldn't get to that" 
+                   
+           
+            
        
        
        
