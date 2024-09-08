@@ -2,6 +2,7 @@ import requests
 import json
 import csv
 from io import StringIO
+from os import environ
 
 from extras.scripts import *
 from django.forms import PasswordInput, EmailInput
@@ -39,7 +40,7 @@ class ListKentikResources(Script):
     
     user_email = StringVar(
         label = "User Email",
-        default = "someuser@some.domain",
+        default = environ.get("KENTIK_EMAIL", "KENTIK_EMAIL not found"),
         description = "Your Login User Email",
         regex =  r'\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b',
         widget = EmailInput
@@ -47,7 +48,7 @@ class ListKentikResources(Script):
     
     api_token = StringVar(
         label = "API Token",
-        default = "",
+        default = environ.get("KENTIK_API_TOKEN", "KENTIK_API_TOKEN not found"),
         description = "Your User API Token",
         #widget = PasswordInput,
         min_length = 32,
